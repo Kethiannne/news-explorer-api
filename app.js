@@ -82,7 +82,7 @@ app.post('/signup',
 );
 
 //// Main Routers
-app.use('/articles', articlesRouter);
+app.use('/articles', authMid, articlesRouter);
 app.use('/users', authMid, usersRouter);
 
 //// All Other Routes get a 404

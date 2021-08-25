@@ -10,13 +10,29 @@ function castErrorHandler(next, err) {
   next(err);
 }
 
+
+// get an article
+module.exports.getAnArticle = (req, res, next) => {
+  const articleId = req.params._id;
+
+  Article.findById(articleId)
+    .then((article) => {
+      if (!article) {
+        throw new MyErr(404, 'User not Found');
+      }
+      return res.send({ article });
+    })
+    .catch((err) => castErrorHandler(next, err));
+};
+
+
 // Get all Articles
 module.exports.getAllArticles = (req, res, next) => {
-  Article.find({}).select('owner')
+  Article.find({}).select('+owner')
     .then((articles) => {
       const userArticles = [];
       articles.forEach((article) => {
-        if (article.owner._id.toString() === req.body.user._id) {
+        if (article.owner._id.toString() === req.user._id) {
           userArticles.push(article);
         }
       });

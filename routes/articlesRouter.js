@@ -2,13 +2,16 @@ const express = require('express');
 const { celebrate, Joi } = require('celebrate');
 const validateUrl = require('../utils/utils');
 const {
-  getAllArticles, createArticle, deleteArticle,
+  getAllArticles, createArticle, deleteArticle, getAnArticle
 } = require('../controllers/articlesController');
 
 const articlesRouter = express.Router();
 
 // Get All Articles
 articlesRouter.get('/', getAllArticles);
+
+// get an article
+articlesRouter.get('/:_id', getAnArticle);
 
 // Create an Article
 articlesRouter.post('/', celebrate({
@@ -20,6 +23,7 @@ articlesRouter.post('/', celebrate({
     source: Joi.string().min(2).max(50).required(),
     link: Joi.string().custom(validateUrl).required(),
     image: Joi.string().custom(validateUrl).required(),
+    user: Joi.object()
   }),
 }), createArticle);
 
