@@ -2,22 +2,18 @@
 const express = require('express');
 const helmet = require('helmet');
 const Mongoose = require('mongoose');
+const { errors } = require('celebrate');
 const cors = require('cors');
-const { celebrate, Joi, errors } = require('celebrate');
 const rateLimit = require('express-rate-limit');
 
 // Imports from My Files
 /// Middleware Imports
-const authMid = require('./middleware/authMiddleware');
 const errsCentral = require('./middleware/errsCentral');
 const { reqLogger, errLogger } = require('./middleware/logger');
 
 /// Non-Middleware Imports
 require('dotenv').config();
-const MyErr = require('./errors/errors');
-const articlesRouter = require('./routes/articlesRouter');
-const usersRouter = require('./routes/usersRouter');
-const { createUser, loginUser } = require('./controllers/usersController');
+const mainRouter = require('./routes/index');
 
 // Variables
 const { PORT = 3000, DB = 'mongodb://localhost:27017/around-backend' } = process.env;
@@ -41,14 +37,14 @@ const allowedOrigins = [
 app.use(cors({ origin: allowedOrigins }));
 
 /// Connection to MongoDB database
-Mongoose.connect(DB, {
+Mongoose.connect((process.env.NODE_ENV === 'production' ? process.env.PROD_DB : DB), {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
 });
 
-// Middleware and Routes
+// Middleware and Router
 
 /// Body Parser
 app.use(express.json());
@@ -59,42 +55,16 @@ app.use(limiter);
 /// Request Logger
 app.use(reqLogger);
 
-/// Signin and Signup Routes
-app.post('/signin',
-  celebrate({
-    body: Joi.object().keys({
-      email: Joi.string().required().email(),
-      password: Joi.string().required().min(8),
-    }),
-  }),
-  loginUser);
-
-app.post('/signup',
-  celebrate({
-    body: Joi.object().keys({
-      email: Joi.string().required().email(),
-      password: Joi.string().required().min(8),
-      name: Joi.string().min(2).max(30),
-    }),
-  }),
-  createUser);
-
-/// Main Routers
-app.use('/articles', authMid, articlesRouter);
-app.use('/users', authMid, usersRouter);
-
-/// All Other Routes get a 404
-app.get('*', (_, __, next) => {
-  next(new MyErr(404, 'Requested resource not found'));
-});
+/// Main Router
+app.use('/', mainRouter);
 
 // Error Handling
 
+/// Celebrate Error Handler
+mainRouter.use(errors());
+
 /// Error Logging
 app.use(errLogger);
-
-/// Celebrate Error Handler
-app.use(errors());
 
 /// Central Error Handler
 app.use(errsCentral);

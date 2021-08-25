@@ -16,5 +16,4 @@ usersRouter.get('/me', celebrate({
   }),
 }), getCurrentUser);
 
-
 module.exports = usersRouter;
