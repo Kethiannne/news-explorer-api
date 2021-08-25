@@ -49,6 +49,10 @@ Mongoose.connect('mongodb://localhost:27017/around-backend', {
 });
 
 // Middleware and Routes
+
+//// Body Parser
+app.use(express.json());
+
 //// Rate Limiter
 app.use(limiter);
 
