@@ -30,13 +30,11 @@ module.exports.getAnArticle = (req, res, next) => {
 module.exports.getAllArticles = (req, res, next) => {
   Article.find({}).select('+owner')
     .then((articles) => {
-      const userArticles = [];
-      articles.forEach((article) => {
-        if (article.owner._id.toString() === req.user._id) {
-          userArticles.push(article);
-        }
-      });
-      res.status(200).send({ userArticles });
+      function checkId(article){
+        return article.owner._id.toString() === req.user._id
+      }
+      const checkedArticles = articles.filter(checkId)
+      res.status(200).send({ checkedArticles });
     })
     .catch(next);
 };
