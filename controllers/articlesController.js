@@ -1,5 +1,4 @@
 const Article = require('../models/articlesModel');
-const User = require('../models/usersModel');
 const MyErr = require('../errors/errors');
 
 // Cast Error Handler
@@ -14,10 +13,10 @@ function castErrorHandler(next, err) {
 module.exports.getAllArticles = (req, res, next) => {
   Article.find({}).select('+owner')
     .then((articles) => {
-      function checkId(article){
-        return article.owner._id.toString() === req.user._id
+      function checkId(article) {
+        return article.owner._id.toString() === req.user._id;
       }
-      const checkedArticles = articles.filter(checkId)
+      const checkedArticles = articles.filter(checkId);
       res.status(200).send({ checkedArticles });
     })
     .catch(next);
@@ -26,7 +25,7 @@ module.exports.getAllArticles = (req, res, next) => {
 // Create an Article
 module.exports.createArticle = (req, res, next) => {
   const {
-    keyword, title, text, date, source, link, image
+    keyword, title, text, date, source, link, image,
   } = req.body;
   Article.create({
     keyword, title, text, date, source, link, image, owner: req.user._id,
@@ -46,7 +45,7 @@ module.exports.createArticle = (req, res, next) => {
 module.exports.deleteArticle = (req, res, next) => {
   const articleId = req.params._id;
 
-  Article.findById(articleId)
+  Article.findById(articleId).select('+owner')
     .then((article) => {
       if (req.user._id !== article.owner._id.toString()) {
         throw new MyErr(403, 'Authorization error');

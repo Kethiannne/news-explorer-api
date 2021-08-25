@@ -2,7 +2,7 @@ const express = require('express');
 const { celebrate, Joi } = require('celebrate');
 const validateUrl = require('../utils/utils');
 const {
-  getAllArticles, createArticle, deleteArticle, getAnArticle
+  getAllArticles, createArticle, deleteArticle,
 } = require('../controllers/articlesController');
 
 const articlesRouter = express.Router();
@@ -20,7 +20,6 @@ articlesRouter.post('/', celebrate({
     source: Joi.string().min(2).max(50).required(),
     link: Joi.string().custom(validateUrl).required(),
     image: Joi.string().custom(validateUrl).required(),
-    user: Joi.object()
   }),
 }), createArticle);
 
