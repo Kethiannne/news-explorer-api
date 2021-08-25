@@ -10,9 +10,6 @@ const articlesRouter = express.Router();
 // Get All Articles
 articlesRouter.get('/', getAllArticles);
 
-// get an article
-articlesRouter.get('/:_id', getAnArticle);
-
 // Create an Article
 articlesRouter.post('/', celebrate({
   body: Joi.object().keys({
