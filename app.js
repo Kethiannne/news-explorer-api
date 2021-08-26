@@ -30,6 +30,8 @@ const limiter = rateLimit({
 
 /// URLs that can access this server
 const allowedOrigins = [
+  'https://www.kethnews.students.nomoreparties.site',
+  'https://kethnews.students.nomoreparties.site',
   'http://localhost:3000',
   'http://localhost:3001',
   'http://localhost:3002',
@@ -45,7 +47,6 @@ Mongoose.connect((process.env.NODE_ENV === 'production' ? process.env.PROD_DB : 
 });
 
 // Middleware and Router
-
 /// Body Parser
 app.use(express.json());
 
@@ -59,7 +60,6 @@ app.use(reqLogger);
 app.use('/', mainRouter);
 
 // Error Handling
-
 /// Celebrate Error Handler
 mainRouter.use(errors());
 
