@@ -13,7 +13,7 @@ const articleSchema = new mongoose.Schema({
     minlength: 2,
     maxlength: 100,
   },
-  text: {
+  description: {
     type: String,
     required: true,
     minlength: 2,
@@ -25,7 +25,7 @@ const articleSchema = new mongoose.Schema({
     minlength: 2,
     maxlength: 100,
   },
-  source: {
+  src: {
     type: String,
     required: true,
     minlength: 2,
@@ -40,7 +40,7 @@ const articleSchema = new mongoose.Schema({
       },
     },
   },
-  image: {
+  urlToImage: {
     type: String,
     required: true,
     validate: {
