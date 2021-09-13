@@ -14,8 +14,10 @@ articlesRouter.get('/', getAllArticles);
 articlesRouter.post('/', celebrate({
   body: Joi.object().keys({
     keyword: Joi.string().min(2).max(30).required(),
-    title: Joi.string().min(2).max(300).required(),
-    description: Joi.string().min(2).max(500).required(),
+    title: Joi.string().regex(/^[,.()[] a-z0-9]+$/).min(2).max(300)
+      .required(),
+    description: Joi.string().regex(/^[,.()[] a-z0-9]+$/).min(2).max(500)
+      .required(),
     publishedAt: Joi.string().min(2).max(50).required(),
     src: Joi.string().min(2).max(50).required(),
     url: Joi.string().custom(validateUrl).required(),
