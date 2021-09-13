@@ -18,7 +18,7 @@ articlesRouter.post('/', celebrate({
     description: Joi.string().min(2).max(300).required(),
     date: Joi.string().min(2).max(50).required(),
     src: Joi.string().min(2).max(50).required(),
-    link: Joi.string().custom(validateUrl).required(),
+    url: Joi.string().custom(validateUrl).required(),
     urlToImage: Joi.string().custom(validateUrl).required(),
   }),
 }), createArticle);

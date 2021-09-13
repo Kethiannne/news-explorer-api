@@ -31,7 +31,7 @@ const articleSchema = new mongoose.Schema({
     minlength: 2,
     maxlength: 100,
   },
-  link: {
+  url: {
     type: String,
     required: true,
     validate: {
