@@ -11,13 +11,13 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 100,
+    maxlength: 300,
   },
   description: {
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 300,
+    maxlength: 500,
   },
   publishedAt: {
     type: String,
