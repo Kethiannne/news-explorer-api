@@ -25,10 +25,10 @@ module.exports.getAllArticles = (req, res, next) => {
 // Create an Article
 module.exports.createArticle = (req, res, next) => {
   const {
-    keyword, title, description, date, src, url, urlToImage,
+    keyword, title, description, publishedAt, src, url, urlToImage,
   } = req.body;
   Article.create({
-    keyword, title, description, date, src, url, urlToImage, owner: req.user._id,
+    keyword, title, description, publishedAt, src, url, urlToImage, owner: req.user._id,
   })
     .then((article) => {
       res.send({ article });
