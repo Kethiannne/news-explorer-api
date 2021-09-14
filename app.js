@@ -25,6 +25,7 @@ app.use(helmet());
 /// Rate limiter, Prevents DDOS
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
+  // FIX ME LATER TONIGHT!!!
   max: 15000,
 });
 
