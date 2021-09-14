@@ -25,7 +25,7 @@ app.use(helmet());
 /// Rate limiter, Prevents DDOS
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 150,
+  max: 15000,
 });
 
 /// URLs that can access this server
