@@ -30,8 +30,8 @@ const limiter = rateLimit({
 
 /// URLs that can access this server
 const allowedOrigins = [
-  'https://www.kethnews.students.nomoreparties.site',
-  'https://kethnews.students.nomoreparties.site',
+  'https://www.kethianne-news.students.nomoreparties.site',
+  'https://kethianne-news.students.nomoreparties.site',
   'http://localhost:3000',
   'http://localhost:3001',
   'http://localhost:3002',
