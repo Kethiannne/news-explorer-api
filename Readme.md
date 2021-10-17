@@ -8,11 +8,11 @@ This repository contains the full API of "KethNews Explorer" project that featur
 
 A link to the repository with the complete React application which uses this API;
 
-https://github.com/Kethiannne/news-explorer-frontend
+ * https://github.com/Kethiannne/news-explorer-frontend
 
 A link to the website that hosts this API.
 
-https://kethianne-news.students.nomoreparties.site
+ * https://kethianne-news.students.nomoreparties.site
 
 ### Functionality & Technologies
   - Express handles server functionality
